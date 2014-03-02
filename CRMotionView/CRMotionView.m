@@ -13,7 +13,7 @@
 
 static const CGFloat CRMotionViewRotationMinimumTreshold = 0.1f;
 static const CGFloat CRMotionGyroUpdateInterval = 1 / 100;
-static const CGFloat CRMotionViewRotationFactor = 4.0f;
+static const CGFloat CRMotionViewRotationFactor = 1.0f;
 
 @interface CRMotionView ()
 
@@ -30,6 +30,14 @@ static const CGFloat CRMotionViewRotationFactor = 4.0f;
 @end
 
 @implementation CRMotionView
+
+-(void)awakeFromNib
+{
+    _viewFrame = self.frame;
+    
+    [super awakeFromNib];
+    [self commonInit];
+}
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
@@ -84,7 +92,7 @@ static const CGFloat CRMotionViewRotationFactor = 4.0f;
     _scrollView.contentSize = CGSizeMake(_imageView.frame.size.width, _scrollView.frame.size.height);
     _scrollView.contentOffset = CGPointMake((_scrollView.contentSize.width - _scrollView.frame.size.width) / 2, 0);
     
-    [_scrollView cr_enableScrollIndicator];
+    //[_scrollView cr_enableScrollIndicator];
     
     _motionRate = _image.size.width / _viewFrame.size.width * CRMotionViewRotationFactor;
     _maximumXOffset = _scrollView.contentSize.width - _scrollView.frame.size.width;
